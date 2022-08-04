@@ -39,7 +39,12 @@ public class ExceptionsDemo {
     public static void main(String[] args) {
 
         // 1. Create a try/catch block (Hint: type "try" and ctrl + space).
-
+    	try {
+			testFiveOrGreater(3);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
         /*
          * 2. Call the testFiveOrGreater method with a value less than 5 inside
          * the try block.
@@ -63,7 +68,7 @@ public class ExceptionsDemo {
      * JOptionPane Message Dialog telling the user they have triggered a
      * critical error in their computer.
      */
-
+    
     /*
      * 7. Create a static method in this class called testPositive. It should
      * take a single number as a parameter and throw a NegativeNumberException
