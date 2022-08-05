@@ -40,7 +40,7 @@ public class ExceptionsDemo {
 
         // 1. Create a try/catch block (Hint: type "try" and ctrl + space).
     	try {
-			testFiveOrGreater(3);
+			testFiveOrGreater(6);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

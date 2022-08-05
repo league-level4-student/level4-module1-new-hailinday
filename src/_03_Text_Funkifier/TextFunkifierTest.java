@@ -44,6 +44,7 @@ public class TextFunkifierTest {
 
     @Test
     public void testCustomString() {
-
+    	Underscore under = new Underscore("This is another test");
+    	assertEquals("This_is_another_test",under.funkifyText());
     }
 }
