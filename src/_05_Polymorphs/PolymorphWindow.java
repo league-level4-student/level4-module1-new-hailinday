@@ -5,15 +5,17 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+
 /*
  * 1. Create new member variables for the width and height of Polymorph then 
  * initialize them in its constructor.
- * 
+	
  * 2. Encapsulate the member variables of the Polymorph class. 
  * 
  * 3. Substitute the hard-coded numbers in the draw method of the BluePolymorph 
@@ -53,29 +55,41 @@ import javax.swing.Timer;
  */
 
 public class PolymorphWindow extends JPanel implements ActionListener {
-
+	
     public static final int WIDTH = 900;
     public static final int HEIGHT = 600;
 
     private JFrame window;
     private Timer timer;
-
-    Polymorph bluePoly;
-
+    static ArrayList<Polymorph> morphs;
+    
+    static Polymorph bluePoly;
+    static Polymorph redPoly;
+    static Polymorph moving;
+    static Polymorph follow;
     public static void main(String[] args) {
         new PolymorphWindow().buildWindow();
+        morphs = new ArrayList<>();
+        morphs.add(bluePoly);
+        morphs.add(redPoly);
+        morphs.add(moving);
+        morphs.add(follow);
+        
     }
 
     public void buildWindow() {
-        window = new JFrame("IT'S MORPHIN' TIME!");
+    	window = new JFrame("IT'S MORPHIN' TIME!");
         window.add(this);
         window.getContentPane().setPreferredSize(new Dimension(500, 500));
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.pack();
         window.setVisible(true);
 
-        bluePoly = new BluePolymorph(50, 50);
-
+        bluePoly = new BluePolymorph(50,50,50,50);
+        redPoly = new RedPolymorph(100,50,50,50);
+        moving = new MovingMorph(150,50,50,50);
+        follow = new mouseFollow(50,50,50,50);
+        
         timer = new Timer(1000 / 30, this);
         timer.start();
     }
@@ -86,13 +100,18 @@ public class PolymorphWindow extends JPanel implements ActionListener {
         g.fillRect(0, 0, 500, 500);
 
         // draw polymorph
-        bluePoly.draw(g);
+        for (int i = 0; i < morphs.size(); i++) {
+			morphs.get(i).draw(g);
+		}
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         repaint();
-        bluePoly.update();
+        for (int i = 0; i < morphs.size(); i++) {
+        	morphs.get(i).update();
+        }
+        
 
     }
 }
