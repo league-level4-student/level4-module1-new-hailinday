@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -63,10 +65,12 @@ public class PolymorphWindow extends JPanel implements ActionListener {
     private Timer timer;
     static ArrayList<Polymorph> morphs;
     
+    
     static Polymorph bluePoly;
     static Polymorph redPoly;
     static Polymorph moving;
     static Polymorph follow;
+    static Polymorph clicked;
     public static void main(String[] args) {
         new PolymorphWindow().buildWindow();
         morphs = new ArrayList<>();
@@ -74,6 +78,7 @@ public class PolymorphWindow extends JPanel implements ActionListener {
         morphs.add(redPoly);
         morphs.add(moving);
         morphs.add(follow);
+        morphs.add(clicked);
         
     }
 
@@ -84,11 +89,14 @@ public class PolymorphWindow extends JPanel implements ActionListener {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.pack();
         window.setVisible(true);
-
+        
         bluePoly = new BluePolymorph(50,50,50,50);
         redPoly = new RedPolymorph(100,50,50,50);
         moving = new MovingMorph(150,50,50,50);
         follow = new mouseFollow(50,50,50,50);
+        clicked = new mouseClick(200,50,50,50);
+        window.addMouseMotionListener((mouseFollow) follow);
+        window.addMouseListener((mouseClick) clicked);
         
         timer = new Timer(1000 / 30, this);
         timer.start();
@@ -111,6 +119,7 @@ public class PolymorphWindow extends JPanel implements ActionListener {
         for (int i = 0; i < morphs.size(); i++) {
         	morphs.get(i).update();
         }
+        
         
 
     }
